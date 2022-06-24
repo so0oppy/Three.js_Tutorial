@@ -11,8 +11,10 @@ Visual Studio Code 설치 https://code.visualstudio.com/download
 ```
 1. 공식 문서에서 직접 다운
 https://threejs.org/
+
 2. npm으로 설치 (미리 node.js 설치)
 https://threejs.org/docs/index.html#manual/ko/introduction/Installation
+
 3. BoilerPlate Webpack 설치
 https://github.com/aakatev/three-js-webpack
 ```
