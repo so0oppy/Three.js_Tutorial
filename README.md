@@ -19,19 +19,19 @@ https://github.com/aakatev/three-js-webpack
 
 
 ### Three.js 기본 구조
-```
+
 + Renderer_ Camera에 담긴 Scene을 웹사이트에 구현
 + Scene_ 여러 3D 오브젝트와 빛이 모인 장면
 + Camera_ 장면을 화면에 담기 위한 카메라
-```
+
 
 
 ### 3D 도형 만들기
-```
+
 + Box Geometry
   + Scene에 cube추가하고 회전을 통해 정육면체 확인
 + Renderer Option
   + Anti-aliasing & Opacity
 + 반응형 처리
   + Window의 크기에 맞춰 배경과 object 크기도 조정됨
-```
+
