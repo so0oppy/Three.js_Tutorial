@@ -24,8 +24,8 @@ https://github.com/aakatev/three-js-webpack
 
 ### 3D 도형 만들기
 - Box Geometry
-Scene에 cube추가하고 회전을 통해 정육면체 확인
+! Scene에 cube추가하고 회전을 통해 정육면체 확인
 - Renderer Option
-Anti-aliasing & Opacity
+! Anti-aliasing & Opacity
 - 반응형 처리
-Window의 크기에 맞춰 배경과 object 크기도 조정됨
+! Window의 크기에 맞춰 배경과 object 크기도 조정됨
