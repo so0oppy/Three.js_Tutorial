@@ -30,7 +30,7 @@
 <img width="800" alt="webpack" src="https://user-images.githubusercontent.com/80036437/175783478-13a7d393-6dd4-4a14-b677-e1ff786f90ec.png">
 <p> - vscode에서 webpack.config.js 파일을 확인해보면, path를 가져와서 module export부분에 있는 entry인 index js파일을 bundle js파일로 변환하여 내보내는 것도 확인가능합니다. </p>
 <p> - 그리고 src/webgl.js를 들어가보면 webgl에 대해 제공하는 브라우저인지 아닌지 확인해주는 코드가 있습니다. </p>
-<p> - src/module.js 폴더는 필요 없으므로 삭제합니다. </p>
+<p> - src/modal.js 폴더는 필요 없으므로 삭제합니다. </p>
 <p> - index.js 파일을 들어가보면, import를 통해 three를 불러왔고, 아까 봤던 webgl 스크립트를 불러온 것 확인가능하고 nodule파일은 지웠으므로 import './modal'는 삭제합니다. </p>
 <p> - index.js 파일 내에 if문을 살펴보면, webgl이 가능한지 체크하는 코드가 있는데, 앞으로 여기에 추가적인 코드를 작성할 예정입니다. 그래서 우선 마지막 줄의 else문을 제외한 나머지 코드는 전부 삭제해주세요. </p>
 <p> - 마지막으로, if문 안에 console.log를 넣어 three가 제대로 불러와졌는지 확인합니다. 아까 들어갔던 웹페이지로 다시 들어가서 개발자 도구를 확인해보면 모듈이 제대로 불러와진 것을 확인할 수 있습니다. </p>
