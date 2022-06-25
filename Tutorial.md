@@ -137,3 +137,108 @@ requestAnimationFrame(render);
 <p>그리고, 아직 도형에 관련된 코드는 필요없으므로 cube.rotation코드는 주석처리 해주고, 렌더러의 setSize는 윈도우의 너비와 높이 값으로 렌더러의 사이즈를 지정해준 것이므로 css값으로 크기를 조정하고 싶다면 이 코드도 지워도 됩니다.
 <p>*아직 도형을 넣지 않았기 때문에 웹을 확인해보면 겉보기에는 달라진 부분이 없을 겁니다.*</p>
 
+-------------------------------------------
+
+### Geometry를 통한 3D 도형 만들기
+<p>이번엔, 3D도형을 지오메트리를 통해 구현해보겠습니다.</p>
+<br>
+
+<p>three.js 공식 문서의 boxGeometry 부분을 살펴보겠습니다. </p>
+
+<img width="361" alt="boxgeometry" src="https://user-images.githubusercontent.com/80036437/175785205-79ee8122-b073-4ea9-b64f-40bd910d85cb.png">
+
+<p>material 변수에 컬러값을 불러오고 geometry 변수에 값을 불러와서 cube변수를 만들고 THREE.Mesh안에 넣어줍니다. </p>
+<p>그리고 cube변수를 scene add를 통해 씬에 큐브를 추가해줍니다.</p>
+
+<br>
+
+<p>위 코드들을 render(time) 함수 바로 위에 추가해줍니다.</p>
+
+```
+//Mesh
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshStandardMaterial({color:0x999999});
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+```
+
+<p>그리고 아까와 마찬가지로 webpack config에서 entry가 수정중인 파일명과 동일한지 확인해주고, 서버를 실행해서 웹을 확인해봅니다.</p>
+<p>만약 도형이 보이지 않는다면, camera.position.z 값을 추가해서 수정해줍니다. (값은 2) </p>
+
+```
+camera.position.z = 2;
+```
+
+<br>
+
+<img width="494" alt="cube" src="https://user-images.githubusercontent.com/80036437/175785399-46615d46-b7f7-43ea-86b8-babc54720345.png">
+
+<p>지금은 도형이 정사각형처럼 보이기 때문에 도형을 회전시켜보겠습니다.</p>
+<p>아까 주석처리한 부분을 다시 코드로 돌려놓고 다시 웹서버를 실행시켜보면, 정육면체가 회전하는 것을 볼 수 있습니다.</p>
+
+```
+  cube.rotation.x = time;
+  cube.rotation.y = time;
+```
+
+<img width="483" alt="rotate" src="https://user-images.githubusercontent.com/80036437/175785446-06b729ea-c049-4f38-9076-ff71489c75bd.png">
+
+---------------------------------------------
+### Renderer Option
+<p>렌더러 옵션을 통해 투명도와 안티 엘리어싱을 설정할 수 있는데요, 참고로 안티 엘리어싱은 그래픽의 계단현상을 제거해주는 기술입니다.</p>
+<p>우선 렌더러 안에 antialias : true를 통해 안티 엘리어싱을 설정해줍니다.</p>
+
+```
+const renderer = new THREE.WebGLRenderer({
+  antialias: true
+});
+```
+
+<p>그럼 전보다는 더 부드러운 그래픽 움직임을 볼 수 있습니다.</p>
+
+<br>
+
+<p>다음으로 투명도를 조절해보겠습니다. </p>
+<p>렌더러 안에 alpha : true를 적으면 투명도가 설정된 것을 볼 수 있습니다.</p>
+
+```
+const renderer = new THREE.WebGLRenderer({
+  alpha: true,
+  antialias: true
+});
+```
+
+----------------------------------------
+
+### 반응형
+<p>마지막으로 반응형 처리를 해보겠습니다.</p>
+- 반응형이란, 화면의 크기를 조절할 때 화면상의 내용도 함께 크기가 조절되는 것을 말합니다.
+
+<br>
+
+<p>먼저 렌더러 코드 아래에 반응형 처리 코드를 작성해줍니다.</p>
+
+```
+//반응형 처리
+function onWindowResize(){
+  camera.aspect = window.innerWidth / window.innerHeight;    //윈도우의 크기에 따라 계속 카메라 종횡비를 업데이트 시켜줍니다.
+  camera.updateProjectionMatrix();    //카메라의 업데이트 프로젝션 메트릭스 함수도 불러오고
+  renderer.setSize(window.innerWidth, window.innerHeight);    //렌더러의 사이즈도 업데이트 시켜줍니다.
+}
+window.addEventListener('resize', onWindowResize);    //이 이벤트리스너를 통해 resize를 했을 경우 onWindowResize함수를 실행시키도록 합니다.
+```
+
+<img width="632" alt="반응형2" src="https://user-images.githubusercontent.com/80036437/175785860-5740fe3e-ea8f-4f66-9a3d-f0fb586d4d0a.png">
+<img width="632" alt="반응형1" src="https://user-images.githubusercontent.com/80036437/175785858-f1903c47-ebe7-4d44-8176-723d93e2b4e5.png">
+
+<p>웹 서버를 실행해보았을 때,</p>
+<p>브라우저의 크기를 조정해보면, 오브젝트 위치가 계속 가운데로 조정되고 배경 사이즈도 함께 조정되는 걸 확인할 수 있습니다.</p>
+
+<br>
+<br>
+
+#### 추가로, three.js 공식 문서를 참고해보시면 다양한 형태, 다양한 재질과 텍스쳐의 지오메트리를 만들어 볼 수 있습니다.
+
+<img width="960" alt="공식문서" src="https://user-images.githubusercontent.com/80036437/175785927-3a2b6445-bcc6-466d-96a8-fcee1469fd6f.png">
+
+https://threejs.org/docs/index.html#api/en/geometries/BoxGeometry
