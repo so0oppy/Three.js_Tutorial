@@ -105,5 +105,35 @@ renderer.render(scene, camera);
 ```
 scene.background = new THREE.Color(0x004fff); 
 ```
-를 넣어줍니다.
+<p>를 넣어줍니다.</p>
+
+<img width="632" alt="bluepage" src="https://user-images.githubusercontent.com/80036437/175785024-fa763c9a-c2cd-4d4f-ac1b-87b7c7ea0144.png">
 <p>다시 웹을 reload하면 파란색으로 배경색이 바뀐것을 확인할 수 있습니다.</p>
+
+<br>
+<br>
+
+--------------------------
+
+추가로, 애니메이션 코드를 넣고 싶다면,
+```
+function render(time) {
+  time *= 0.001;  // convert time to seconds
+ 
+  cube.rotation.x = time;
+  cube.rotation.y = time;
+ 
+  renderer.render(scene, camera);
+ 
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+```
+
+<p>렌더링을 loop하는 코드인 render(time)함수를 renderer.render코드 하단에 붙여넣습니다. </p>
+<p>렌더 함수 안에 renderer.render()코드가 있기 때문에 기존의 겹치는 코드는 지워줍니다.</p>
+<br>
+
+<p>그리고, 아직 도형에 관련된 코드는 필요없으므로 cube.rotation코드는 주석처리 해주고, 렌더러의 setSize는 윈도우의 너비와 높이 값으로 렌더러의 사이즈를 지정해준 것이므로 css값으로 크기를 조정하고 싶다면 이 코드도 지워도 됩니다.
+<p>*아직 도형을 넣지 않았기 때문에 웹을 확인해보면 겉보기에는 달라진 부분이 없을 겁니다.*</p>
+
